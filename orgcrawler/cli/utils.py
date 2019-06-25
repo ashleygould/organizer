@@ -20,19 +20,21 @@ def get_payload_function_from_file(file_name, payload_name):
     return getattr(module, payload_name)
 
 
-def setup_crawler(org_access_role, account_access_role=None, accounts=None, regions=None):
+#def setup_crawler(org_access_role, account_access_role=None, accounts=None, regions=None):
+def setup_crawler(org_access_role, crawler_args):
     """
     Returns a fully loaded orgcrawler.crawlers.Crawler object
     """
     master_account_id = get_master_account_id(org_access_role)
     my_org = orgs.Org(master_account_id, org_access_role)
     my_org.load()
-    my_crawler = crawlers.Crawler(
-        my_org,
-        access_role=account_access_role,
-        accounts=accounts,
-        regions=regions,
-    )
+    my_crawler = crawlers.Crawler(my_org, **crawler_args)
+    #my_crawler = crawlers.Crawler(
+    #    my_org,
+    #    access_role=account_access_role,
+    #    accounts=accounts,
+    #    regions=regions,
+    #)
     my_crawler.load_account_credentials()
     return my_crawler
 

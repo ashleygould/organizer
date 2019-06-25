@@ -23,6 +23,7 @@ class Crawler(object):
         self.org = org
         self.access_role = kwargs.get('access_role') or org.access_role
         self.accounts = kwargs.get('accounts') or org.accounts
+        self.exclude_accounts = kwargs.get('exclude_accounts')
         self.validate_accounts()
         self.regions = kwargs.get('regions') or self.all_regions
         self.validate_regions()
@@ -39,6 +40,10 @@ class Crawler(object):
         if self.accounts != self.org.accounts:
             if not isinstance(self.accounts, list):
                 self.accounts = [self.accounts]
+            if self.exclude_accounts is not None:
+                if not isinstance(self.exclude_accounts, list):
+                    self.exclude_accounts = [self.exclude_accounts]
+                self.accounts = list(set(self.accounts) - set(self.exclude_accounts))
             self.accounts = [
                 self.org.get_account(a) for a in self.accounts
                 if self.is_valid_account(a)

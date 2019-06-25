@@ -31,6 +31,9 @@ def print_version(ctx, param, value):
 @click.option('--accounts',
     help='Comma separated list of accounts to crawl. Can be account Id, name or '
          'alias. Default is all accounts in organization.')
+@click.option('--exclude-accounts',
+    help='Comma separated list of accounts to exclude from crawl. Can be account Id, '
+    'name or alias.')
 @click.option('--regions',
     help='Comma separated list of AWS regions to crawl. Default is all regions.')
 @click.option('--service',
@@ -44,7 +47,7 @@ def print_version(ctx, param, value):
     expose_value=False,
     is_eager=True,
     help='Display version info and exit.')
-def main(master_role, account_role, regions, accounts,
+def main(master_role, account_role, regions, accounts, exclude_accounts,
         service, payload_file, payload, payload_arg):
     """
 Arguments:
@@ -69,6 +72,8 @@ Examples:
     crawler_args = dict()
     if accounts:
         crawler_args['accounts'] = accounts.split(',')
+    if exclude_accounts:
+        crawler_args['exclude_accounts'] = exclude_accounts.split(',')
     if service:
         crawler_args['regions'] = regions_for_service(service)
     elif regions:
@@ -80,7 +85,7 @@ Examples:
     else:
         payload = get_payload_function_from_string(payload)
 
-    crawler = setup_crawler(master_role, **crawler_args)
+    crawler = setup_crawler(master_role, crawler_args)
     execution = crawler.execute(payload, *payload_arg)
     click.echo(jsonfmt(format_responses(execution)))
 
