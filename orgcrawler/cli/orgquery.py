@@ -58,8 +58,16 @@ def validate_command_argument(ctx, param, value):
 
 
 @click.command(context_settings=CONTEXT_SETTINGS)
-@click.argument('command', callback=validate_command)
-@click.argument('argument', nargs=1, required=False, callback=validate_command_argument)
+@click.argument('command',
+    callback=validate_command,
+    help='An organization query command to run',
+)
+@click.argument('argument',
+    nargs=1,
+    required=False,
+    callback=validate_command_argument,
+    help='A command argument to supply if needed',
+)
 @click.option('--role', '-r',
     required=True,
     help='IAM role to assume for accessing AWS Organization Master account.')
@@ -78,12 +86,6 @@ def validate_command_argument(ctx, param, value):
     help='Display version info and exit.')
 def main(command, argument, role, debug, format):
     """
-Arguments:
-
-    \b
-    COMMAND     An organization query command to run
-    ARGUMENT    A command argument to supply if needed
-
 Available Query Commands:
 
     \b
