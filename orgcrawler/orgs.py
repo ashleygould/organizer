@@ -29,29 +29,30 @@ class Org(object):
 
 
     Args:
-        master_account_id (str): Account Id of the Organization master account.
-        access_role (str): The IAM role to assume when loading Organization
-            resource data.
-        log_level (str): Sets the logging level [Default: 'error'].
+        master_account_id (str):  Account Id of the Organization master account.
+        access_role (str):        The IAM role to assume when loading Organization
+                                  resource data.
+        log_level (str):          Sets the logging level [Default: 'error'].
         cache_file_max_age (int): Cache file time out in minutes [Default: 60].
-        cache_dir (str): Directory where to save cache files
-            [Default: ``~/.aws/orgcrawler-cache``].
-        cache_file (str): Cache file name
-            [Default: ``cache_file-${master_account_id}``].
+        cache_dir (str):          Directory where to save cache files
+                                  [Default: ``~/.aws/orgcrawler-cache``].
+        cache_file (str):         Cache file name
+                                  [Default: ``cache_file-${master_account_id}``].
 
     Object Attributes and Methods:
 
     Attributes:
-        master_account_id (str): Account Id of the Organization master account.
-        access_role (str): The IAM role to assume when loading Organization
-            resource data.
-        id (str): The Organization resource Id.
-        root_id (str): The root Organizational Unit resource Id.
-        accounts (list(:obj:`OrgAccount`)): List of account in the Organization.
-        org_units (list(:obj:`OrganizationalUnit`)): List of organizational
-            units in the Organization.
-        policies list(:obj:`OrgPolicy`)): List of Service Control Policies in
-            the Organization.
+        master_account_id (str):  Account Id of the Organization master account.
+        access_role (str):        The IAM role to assume when loading Organization
+                                  resource data.
+        id (str):                 The Organization resource Id.
+        root_id (str):            The root Organizational Unit resource Id.
+        accounts (list(:obj:`OrgAccount`)): 
+                                  List of account in the Organization.
+        org_units (list(:obj:`OrganizationalUnit`)): 
+                                  List of organizational units in the Organization.
+        policies list(:obj:`OrgPolicy`)): 
+                                  List of Service Control Policies in the Organization.
 
     """
 

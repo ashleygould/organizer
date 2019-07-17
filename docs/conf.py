@@ -26,7 +26,7 @@ author = 'Ashley Gould'
 # The short X.Y version
 version = ''
 # The full version, including alpha/beta/rc tags
-release = '0.1.1'
+release = '1.0.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -46,6 +46,8 @@ extensions = [
 # Document Python Code - for use with autoapi.extension
 autoapi_type = 'python'
 autoapi_dirs = ['../orgcrawler']
+autoapi_keep_files = True
+autoapi_options = ['members', 'undoc-members', 'special-members']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
