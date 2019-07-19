@@ -36,7 +36,6 @@ _COMMANDS_WITH_ARG = [
     'get_accounts_for_policy_recursive',
 ]
 AVAILABLE_COMMANDS = _COMMANDS + _COMMANDS_WITH_ARG
-CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 def jsonfmt(obj):
@@ -57,16 +56,15 @@ def validate_command_argument(ctx, param, value):
     return value
 
 
-@click.command(context_settings=CONTEXT_SETTINGS)
+@click.command(context_settings=dict(help_option_names=['-h', '--help']))
 @click.argument('command',
+    required=True,
     callback=validate_command,
-    help='An organization query command to run',
 )
 @click.argument('argument',
     nargs=1,
     required=False,
     callback=validate_command_argument,
-    help='A command argument to supply if needed',
 )
 @click.option('--role', '-r',
     required=True,
@@ -86,6 +84,9 @@ def validate_command_argument(ctx, param, value):
     help='Display version info and exit.')
 def main(command, argument, role, debug, format):
     """
+
+Run a query to get information about your AWS Organization.
+
 Available Query Commands:
 
     \b
@@ -114,6 +115,14 @@ Available Query Commands:
     get_targets_for_policy POLICY_IDENTIFIER
     get_policies_for_target POLICY_IDENTIFIER
     get_accounts_for_policy_recursive POLICY_IDENTIFIER
+
+The query commands are simply methods from class orgcrawler.orgs.Org.  For full
+documentation of individual orgquery commands, see python help:
+
+    \b
+    >>> from orgcrawler.orgs import Org
+    >>> help(Org)
+    >>> help(Org.get_accounts_for_policy_recursive)
 
 Examples:
 
